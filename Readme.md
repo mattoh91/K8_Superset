@@ -10,9 +10,16 @@ The components of this implementation are as follows:
 3. Helm: A package manager for K8s, where each package is referred to as a "chart". Charts are an abstracted collection of .yaml K8s config files which would otherwise have to be manually created and maintained for every installation of a containerised application.
 4. Apache Superset: An open-source visualisation tool and SQL IDE that is built atop Flask. It is a robust tool with a large variety of visualisations and connections to different databases.
 
-### Usage Instructions
+### 1. Usage Instructions
 The best practice for configuration is for the key-value pairs within `<chart dir>/template/<filename>.yaml` config files to dynamically reference a `values.yaml` file using the Go templating engine under the hood. This section discusses configuring the release of the Superset Helm chart to use Ingress and OAuth.
-#### 1. Ingress Configuration 
+#### A. GCP Configuration
+Input your `google key` and `google secret` into these segments of the `my-values.yaml` file.
+```
+extraSecretEnv:
+  GOOGLE_KEY: <insert key ending with .apps.googleusercontent.com>
+  GOOGLE_SECRET: <insert secret>
+```
+#### B. Ingress Configuration 
 The `<chart dir>/template/ingress.yaml` config file already has the necessary key-value pairs to utilise the Go templating engine for dynamic referencing. What needs to be done is to input your `hostname` into this segment of the `my-values.yaml` file.
 ```
 ingress:
@@ -26,33 +33,40 @@ ingress:
   path: /
   pathType: Prefix
   hosts:
-     - # <insert hostname>
+     - <insert hostname>
   tls:
   - hosts:
-      - # <insert hostname>
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
+      - <insert hostname>
 ```
+#### C. OAuth Configuration
+Input your `hostname` into these segments of the `my-values.yaml` file.
+```
+extraEnv:
+  OAUTH_HOME_DOMAIN: <insert OAuth home domain>
+```
+#### D. Superset Mapbox API Configuration for Geospatial Plots
+Go to Mapbox's [website](https://www.mapbox.com/) and sign up for a free account to generate an API token. Input your API token into this segment of the `my-values.yaml` file.
+```
+extraSecretEnv:
+  MAPBOX_API_KEY: <insert mapbox api key>
+```
+### 2. Installation
+Assuming you already have a working K8s cluster with Helm installed, execute the following command in your CLI.
 ```
 helm upgrade superset superset/superset --install --values my_values.yaml --namespace <insert namespace>
 ```
 
-
-#### 2. Deploy Superset with Ingress and OAUTH
-
-
-#### 3. Connect to database
+### 3. Connecting to databases
 The current deployment is connected to an Apache Spark SQL database server.
 
 To connect to other databases, please refer to the [official Apache Superset docs](https://superset.apache.org/docs/databases/installing-database-drivers) to check for PyPI dependencies and connection string format.
 
-#### 4. Export Superset Dashboard, Chart and Dataset
+### 4. Export Superset Dashboard, Chart and Dataset
 Go to the Dashboards list page, from the "Actions" columns of to-be-exported dashboard, click "Export" button. The Dashboards, its Charts and its Datasets will be exported together.
 
 ![Superset Dashboard Export](images/dashboard_export.png)
 
-#### 5. Import Superset Dashboard, Chart and Dataset
+### 5. Import Superset Dashboard, Chart and Dataset
 5.1 Go to the Dashboards list page, from the right top cornor, click "Import Dashboards" button. The Dashboards, its Charts and its Datasets will be imported together.
 
 ![Superset Dashboard Import](images/dashboard_import.png)
@@ -62,7 +76,7 @@ Choose the file that going to be imported and click "IMPORT" button. The dashboa
 
 ![Superset Dashboard Import Dialogbox](images/import_dashboard.png)
 
-#### 6. Role-Based Access Management
+### 6. Role-Based Access Management
 Roles can be configured in ```Settings > List Roles > +```.
 
 Superset comes with several predefined roles as described in the [official documentation](https://superset.apache.org/docs/security/).
@@ -70,12 +84,12 @@ Superset comes with several predefined roles as described in the [official docum
 The "Gamma" role can be used as a basic template for new roles. Thereafter, datasource accesses can be granted to roles to restrict access to specific datasets, which in turn restricts what users with that role can view in dashboards.
 ![Superset role access screenshot](images/role_access.png)
 
-#### 7. Uninstall Superset with Helm
+### 7. Uninstall Superset with Helm
 ```
 helm uninstall superset --namespace batch11-dataops-playground
 ```
 
-### Known Issues
+### 8. Known Issues
 * Database connection error message:
 
 ![Database error message screenshot](images/db_connect_error.png)
