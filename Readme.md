@@ -1,4 +1,4 @@
-Superset in vbrani
+Superset in Kubernetes
 ===
 ### Introduction
 This repository contains code to install Apache Superset through Helm, onto a Kubernetes cluster. Specifically, this implementation includes configurations that allow for Ingress to expose a http/https route with a domain name, and OAuth authentication.
