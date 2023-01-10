@@ -64,17 +64,17 @@ To connect to other databases, please refer to the [official Apache Superset doc
 ### 4. Export Superset Dashboard, Chart and Dataset
 Go to the Dashboards list page, from the "Actions" columns of to-be-exported dashboard, click "Export" button. The Dashboards, its Charts and its Datasets will be exported together.
 
-![Superset Dashboard Export](/images/dashboardExport.png)
+<img width="139" alt="dashboardExport" src="https://user-images.githubusercontent.com/32504637/211493156-0b8c7f5a-5362-4105-9c9a-39d7a20ec62f.png">
 
 ### 5. Import Superset Dashboard, Chart and Dataset
 5.1 Go to the Dashboards list page, from the right top cornor, click "Import Dashboards" button. The Dashboards, its Charts and its Datasets will be imported together.
 
-![Superset Dashboard Import](/images/dashboardImport.png)
+<img width="345" alt="dashboardImport" src="https://user-images.githubusercontent.com/32504637/211493383-7488c379-35f1-466f-998c-565c94371405.png">
 
 5.2 
 Choose the file that going to be imported and click "IMPORT" button. The dashboards will be imported after that.
 
-![Superset Dashboard Import Dialogbox](/images/importDashboard.png)
+<img width="345" alt="dashboardImport" src="https://user-images.githubusercontent.com/32504637/211493185-b6d78829-6c1e-4364-a157-91839983cfdd.png">
 
 ### 6. Role-Based Access Management
 Roles can be configured in ```Settings > List Roles > +```.
@@ -82,7 +82,7 @@ Roles can be configured in ```Settings > List Roles > +```.
 Superset comes with several predefined roles as described in the [official documentation](https://superset.apache.org/docs/security/).
 
 The "Gamma" role can be used as a basic template for new roles. Thereafter, datasource accesses can be granted to roles to restrict access to specific datasets, which in turn restricts what users with that role can view in dashboards.
-![Superset role access screenshot](/images/roleAccess.png)
+![roleAccess](https://user-images.githubusercontent.com/32504637/211493430-7554bd11-e60c-4c4d-a2ad-f8f3561cca28.png)
 
 ### 7. Uninstall Superset with Helm
 ```
@@ -92,4 +92,4 @@ helm uninstall superset --namespace batch11-dataops-playground
 ### 8. Known Issues
 * Database connection error message:
 
-![Database error message screenshot](/images/dbConnectError.png)
+![dbConnectError](https://user-images.githubusercontent.com/32504637/211493272-3c2abcfb-9a0c-449e-a3dc-b397ecbf4001.png)
