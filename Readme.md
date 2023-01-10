@@ -64,17 +64,17 @@ To connect to other databases, please refer to the [official Apache Superset doc
 ### 4. Export Superset Dashboard, Chart and Dataset
 Go to the Dashboards list page, from the "Actions" columns of to-be-exported dashboard, click "Export" button. The Dashboards, its Charts and its Datasets will be exported together.
 
-![Superset Dashboard Export](images/dashboard_export.png)
+![Superset Dashboard Export](/images/dashboard_export.png)
 
 ### 5. Import Superset Dashboard, Chart and Dataset
 5.1 Go to the Dashboards list page, from the right top cornor, click "Import Dashboards" button. The Dashboards, its Charts and its Datasets will be imported together.
 
-![Superset Dashboard Import](images/dashboard_import.png)
+![Superset Dashboard Import](/images/dashboardImport.png)
 
 5.2 
 Choose the file that going to be imported and click "IMPORT" button. The dashboards will be imported after that.
 
-![Superset Dashboard Import Dialogbox](images/import_dashboard.png)
+![Superset Dashboard Import Dialogbox](/images/importDashboard.png)
 
 ### 6. Role-Based Access Management
 Roles can be configured in ```Settings > List Roles > +```.
@@ -82,7 +82,7 @@ Roles can be configured in ```Settings > List Roles > +```.
 Superset comes with several predefined roles as described in the [official documentation](https://superset.apache.org/docs/security/).
 
 The "Gamma" role can be used as a basic template for new roles. Thereafter, datasource accesses can be granted to roles to restrict access to specific datasets, which in turn restricts what users with that role can view in dashboards.
-![Superset role access screenshot](images/role_access.png)
+![Superset role access screenshot](/images/roleAccess.png)
 
 ### 7. Uninstall Superset with Helm
 ```
@@ -92,5 +92,4 @@ helm uninstall superset --namespace batch11-dataops-playground
 ### 8. Known Issues
 * Database connection error message:
 
-![Database error message screenshot](images/db_connect_error.png)
-
+![Database error message screenshot](/images/dbConnectError.png)
