@@ -93,3 +93,5 @@ helm uninstall superset --namespace batch11-dataops-playground
 * Database connection error message:
 
 ![dbConnectError](https://user-images.githubusercontent.com/32504637/211493272-3c2abcfb-9a0c-449e-a3dc-b397ecbf4001.png)
+
+_For a user-friendly guide on how to use Superset, you can refer to this [post](https://epoch.aisingapore.org/2023/01/apache-superset-an-open-source-visualization-tool/)_ :)
