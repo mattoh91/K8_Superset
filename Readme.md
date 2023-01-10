@@ -64,7 +64,7 @@ To connect to other databases, please refer to the [official Apache Superset doc
 ### 4. Export Superset Dashboard, Chart and Dataset
 Go to the Dashboards list page, from the "Actions" columns of to-be-exported dashboard, click "Export" button. The Dashboards, its Charts and its Datasets will be exported together.
 
-![Superset Dashboard Export](/images/dashboard_export.png)
+![Superset Dashboard Export](/images/dashboardExport.png)
 
 ### 5. Import Superset Dashboard, Chart and Dataset
 5.1 Go to the Dashboards list page, from the right top cornor, click "Import Dashboards" button. The Dashboards, its Charts and its Datasets will be imported together.
