@@ -1,7 +1,13 @@
 Superset in vbrani
 ===
-1. To host Superset in vbrani without OAUTH
-2. To host Superset in vbrani with OAUTH
+### Introduction
+This repository contains code to set up Apache Superset on a Kubernetes Cluster through Helm. Specifically, this implementation includes configurations that allow for Ingress to expose a http/https route with a domain name, and OAuth authentication.
+
+### Stack
+The various components of this implementation are as follows:
+1. Kubernetes
+2. Helm
+3. Apache Superset
 
 ### Usage Instructions
 #### 1. Deploy Superset with Ingress 
