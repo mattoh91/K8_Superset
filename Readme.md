@@ -1,55 +1,46 @@
 Superset in vbrani
 ===
 ### Introduction
-This repository contains code to set up Apache Superset on a Kubernetes Cluster through Helm. Specifically, this implementation includes configurations that allow for Ingress to expose a http/https route with a domain name, and OAuth authentication.
+This repository contains code to install Apache Superset through Helm, onto a Kubernetes cluster. Specifically, this implementation includes configurations that allow for Ingress to expose a http/https route with a domain name, and OAuth authentication.
 
 ### Stack
-The various components of this implementation are as follows:
-1. Kubernetes
-2. Helm
-3. Apache Superset
+The components of this implementation are as follows:
+1. Google Cloud Platform (GCP): Google's broad suite of cloud computing services.
+2. Kubernetes (K8s): K8s is an open-source system for automating deployment, scaling, and management of containerised applications. K8s is can be deployed standalone, or provisioned through a 3rd party cloud service provider such as Google Kubernetes Engine (GKE).
+3. Helm: A package manager for K8s, where each package is referred to as a "chart". Charts are an abstracted collection of .yaml K8s config files which would otherwise have to be manually created and maintained for every installation of a containerised application.
+4. Apache Superset: An open-source visualisation tool and SQL IDE that is built atop Flask. It is a robust tool with a large variety of visualisations and connections to different databases.
 
 ### Usage Instructions
-#### 1. Deploy Superset with Ingress 
+The best practice for configuration is for the key-value pairs within `<chart dir>/template/<filename>.yaml` config files to dynamically reference a `values.yaml` file using the Go templating engine under the hood. This section discusses configuring the release of the Superset Helm chart to use Ingress and OAuth.
+#### 1. Ingress Configuration 
+The `<chart dir>/template/ingress.yaml` config file already has the necessary key-value pairs to utilise the Go templating engine for dynamic referencing. What needs to be done is to input your `hostname` into this segment of the `my-values.yaml` file.
 ```
-helm upgrade superset superset/superset --install --values values_withIngress.yaml --namespace batch11-dataops-playground
+ingress:
+  enabled: true
+  annotations:
+    acme.cert-manager.io/http01-edit-in-place: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    cert-manager.io/issue-temporary-certificate: "true"
+    kubernetes.io/ingress.class: nginx
+    meta.helm.sh/release-name: superset
+  path: /
+  pathType: Prefix
+  hosts:
+     - # <insert hostname>
+  tls:
+  - hosts:
+      - # <insert hostname>
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
 ```
-Outcome:
 ```
-NAME: superset
-LAST DEPLOYED: MM DD HH:MM:SS YYYY
-NAMESPACE: batch11-dataops-playground
-STATUS: deployed
-REVISION: 1
-TEST SUITE: None
-NOTES:
-1. Get the application URL by running these commands:
-  https://superset.vbrani.aisingapore.net/
+helm upgrade superset superset/superset --install --values my_values.yaml --namespace <insert namespace>
 ```
 
+
 #### 2. Deploy Superset with Ingress and OAUTH
-Please update the following fields in values_withIngress_OAUTH.yaml before run the following command.
-```
-extraSecretEnv:
-  GOOGLE_KEY: ToBeUpdated
-  GOOGLE_SECRET: ToBeUpdated
-  MAPBOX_API_KEY: ToBeUpdated
-```
-```
-helm upgrade superset superset/superset --install --values values_withIngress_OAUTH.yaml --namespace batch11-dataops-playground
-```
-Outcome:
-```
-NAME: superset
-LAST DEPLOYED: MM DD HH:MM:SS YYYY
-NAMESPACE: batch11-dataops-playground
-STATUS: deployed
-REVISION: 1
-TEST SUITE: None
-NOTES:
-1. Get the application URL by running these commands:
-  https://superset.vbrani.aisingapore.net/
-```
+
 
 #### 3. Connect to database
 The current deployment is connected to an Apache Spark SQL database server.
